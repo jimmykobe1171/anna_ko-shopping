@@ -19,6 +19,17 @@ import UserSettingPage from "../UserSettingPage/UserSettingPage";
 
 export default function App() {
   const [user, setUser] = useState();
+  function getPost(){
+    let data 
+    axios.get('http://127.0.0.1:8000/api/main_app/')
+    .then(res => {
+      data = res.data;
+      setPosts(data);
+    })
+    .catch(err => {
+      console.log(err);
+    }
+    )}
 
 
   return (
