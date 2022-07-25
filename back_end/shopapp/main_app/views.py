@@ -5,6 +5,7 @@ from rest_framework.views import APIView
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework import viewsets  
+from django.contrib import auth
 from rest_framework import permissions 
 from django.views.decorators.csrf import ensure_csrf_cookie, csrf_protect
 from django.utils.decorators import method_decorator
@@ -39,7 +40,7 @@ class SignupView(APIView):
                         else: 
                             user = User.objects.create_user(username=username, password=password)
                             user.save()
-                            user = User.objects.get(username=username)
+                            user = User.objects.get(id=user.id)
                             user_profile = UserProfile(user=user.id, first_name='', last_name='', phone='', city='', address='')
                             user_profile.save()
                             return Response({'success': 'User created successfully'})
