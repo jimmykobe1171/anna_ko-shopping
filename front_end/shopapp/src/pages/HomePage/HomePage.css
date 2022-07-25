@@ -1,0 +1,21 @@
+.section-container {
+    /* min-width: 30%;
+    height: 240px; */
+    
+    /* display: flex; */
+    /* align-items: center; */
+    /* justify-content: center; */
+    /* display: block; */
+    margin: 20px 10px 20px;
+    overflow: hidden;
+} */
+.section-container:hover {
+    cursor: pointer;
+}
+/* img {
+    max-width: 100%;
+    height: auto;
+} */
+a {
+    color:inherit;
+}
