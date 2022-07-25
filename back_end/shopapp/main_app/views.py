@@ -74,13 +74,56 @@ class LoginView(APIView):
         except:
             return Response({'error': 'Something went wrong during Log In'})
 
-    class Lougout(APIView):
-        def post(self, request, format=None):
-            try:
-                auth.logout(request)
-                return Response({'success': 'Loggout '})
-            except:
-                return Response({'error': 'Something went wrongduring logging out'})
+class Lougout(APIView):
+    def post(self, request, format=None):
+        try:
+            auth.logout(request)
+            return Response({'success': 'Loggout '})
+        except:
+                eturn Response({'error': 'Something went wrongduring logging out'})
+
+class DeleteUserView(APIView):
+    def delete(self, request, format=None):user = self.request.user
+        try:
+            user = User.objects.filter(id=user.id).delete()
+            return Response({'success': "User deleted"})
+        except:
+            return Response({'error': "Something went wrong during deleting user"})
+    
+class GetUserProfileView(APIView):
+    def get(self, request, format=None):
+        try:
+            user = self.request.user
+            username = user.username
+            user = User.objects.get(id=user.id)
+            user_profile = UserProfile.objects.get(user=user)
+            user_profile = UserProfileSerializer(user_profile)
+            return Response({'profile':, user_profile.data, 'username':str(username)})
+        except:
+            return Response({'error': 'Something went wrong during updating'})
+
+
+class UpdateUserProfileView(APIView):
+    def get(self, request, format=None):
+        try:
+            user = self.request.user
+            username = user.username
+            data = self.request.data
+            first_name = data['first_name']
+            last_name = data['last_name']
+            phone = data['phone']
+            address = data['address']
+            city = data['city']
+
+            user = User.objects.get(id=user.id)
+            UserProgile.objects.filter(user=user).update(first_name=first_name, last_name=last_name, phone=phone, address=address, city=city)
+
+            user_profile = UserProfile.objects.get(user=user)
+            user_profile = UserProfileSerializer(user_profile)
+            return Response({'profile':, user_profile.data, 'username':str(username)})
+        except:
+            return Response({'error': 'Something went wrong during updating'})
+
 
 
     # def post(self, request, format='json'):

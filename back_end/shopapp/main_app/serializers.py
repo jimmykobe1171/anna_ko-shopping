@@ -1,5 +1,6 @@
 from rest_framework import serializers
 from .models import Product
+from .models import UserProfile
 
 from rest_framework.validators import UniqueValidator
 from .models import User
@@ -11,8 +12,6 @@ class UserSerializer(serializers.ModelSerializer):
         fields = [
             "id", 
             "username", 
-            "first_name", 
-            "last_name", 
             "email", 
             "password", 
             
@@ -32,7 +31,11 @@ class UserSerializer(serializers.ModelSerializer):
         return user
 
     
-    
+ class UserProfileSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = UserProfile
+        fields = '__all__'
+                
 
 class ProductSerializer(serializers.ModelSerializer):
  
