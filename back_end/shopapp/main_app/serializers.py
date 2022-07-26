@@ -31,7 +31,7 @@ class UserSerializer(serializers.ModelSerializer):
         return user
 
     
- class UserProfileSerializer(serializers.ModelSerializer):
+class UserProfileSerializer(serializers.ModelSerializer):
     class Meta:
         model = UserProfile
         fields = '__all__'

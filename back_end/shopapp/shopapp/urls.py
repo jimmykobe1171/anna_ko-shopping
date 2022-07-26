@@ -19,7 +19,9 @@ from django.views.generic import TemplateView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('api-auth/', include('rest_framework.urls')),
+    path('profiles/', include('main_app.urls')),
+    # path('profiles/', include('django.contrib.auth.urls')),
+    
 #     path('main_app/', include('main_app.urls')),
 # ]
 # urlspatterns +=[re_path(r'^.*', TemplateView.as_view(template_name='index.html'))]

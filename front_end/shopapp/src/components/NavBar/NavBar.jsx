@@ -12,7 +12,7 @@ const NavBar = ({ user, setUser }) => {
             <div className='navbar-container'>
                 <div className="nav-links-container">
                     <Link className="nav-link" to='/women'>
-                        Women
+                        WOMEN
                     </Link>
                     &nbsp; | &nbsp;
                     <Link className="nav-link" to='/men'>MEN</Link>

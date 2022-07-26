@@ -14,12 +14,13 @@ from django.contrib.auth.models import User
 class CheckAuthenticatedView(APIView):
     def get(self, request, format=None):
         try:
-        isAuthenticated = User.is_authenticated
-        if isAuthenticated:
-            return Response({'isAuthenticated': 'success'})
-        else:
-            return Response('isAuthenticated': 'error')
-    return Response({'error': 'Something went wrong during authenticated'})
+            isAuthenticated = User.is_authenticated
+            if isAuthenticated:
+                return Response({'isAuthenticated': 'success'})
+            else:
+                return Response({'isAuthenticated': 'error'})
+        except:        
+            return Response({'error': 'Something went wrong during authenticated'})
 
 @method_decorator(csrf_protect, name='dispatch')
 class SignupView(APIView):
@@ -74,16 +75,17 @@ class LoginView(APIView):
         except:
             return Response({'error': 'Something went wrong during Log In'})
 
-class Lougout(APIView):
+class LogoutView(APIView):
     def post(self, request, format=None):
         try:
             auth.logout(request)
             return Response({'success': 'Loggout '})
         except:
-                eturn Response({'error': 'Something went wrongduring logging out'})
+            return Response({'error': 'Something went wrongduring logging out'})
 
 class DeleteUserView(APIView):
-    def delete(self, request, format=None):user = self.request.user
+    def delete(self, request, format=None):
+        user = self.request.user
         try:
             user = User.objects.filter(id=user.id).delete()
             return Response({'success': "User deleted"})
@@ -98,7 +100,7 @@ class GetUserProfileView(APIView):
             user = User.objects.get(id=user.id)
             user_profile = UserProfile.objects.get(user=user)
             user_profile = UserProfileSerializer(user_profile)
-            return Response({'profile':, user_profile.data, 'username':str(username)})
+            return Response({'profile': user_profile.data, 'username':str(username)})
         except:
             return Response({'error': 'Something went wrong during updating'})
 
@@ -120,7 +122,7 @@ class UpdateUserProfileView(APIView):
 
             user_profile = UserProfile.objects.get(user=user)
             user_profile = UserProfileSerializer(user_profile)
-            return Response({'profile':, user_profile.data, 'username':str(username)})
+            return Response({'profile': user_profile.data, 'username':str(username)})
         except:
             return Response({'error': 'Something went wrong during updating'})
 
