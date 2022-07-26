@@ -1,6 +1,7 @@
 from rest_framework import serializers
 from .models import Product
 from .models import UserProfile
+from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 
 from rest_framework.validators import UniqueValidator
 from .models import User
@@ -42,4 +43,4 @@ class ProductSerializer(serializers.ModelSerializer):
     # create a meta class
     class Meta:
         model = Product
-        fields = ('id', 'brand','description','price', 'category')
+        fields = ('id', 'brand','description', 'price', 'category')

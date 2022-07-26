@@ -20,6 +20,7 @@ class Product(models.Model):
   name = models.CharField(max_length=100)
   category = models.CharField(max_length=100)
   description = models.TextField(max_length=250)
+  image = models.ImageField(upload_to='media', default='def.jpg')
   price = models.IntegerField()
   brand = models.CharField(max_length=100)
 
@@ -29,13 +30,13 @@ class Product(models.Model):
         
   
 
-class Cart(models.Model):
-  quantity = models.IntegerField()
-  price = models.IntegerField()
-  total = models.IntegerField()
-  product = models.ForeignKey(Product, on_delete=models.CASCADE)
+# class Cart(models.Model):
+#   quantity = models.IntegerField()
+#   price = models.IntegerField()
+#   total = models.IntegerField()
+#   product = models.ForeignKey(Product, on_delete=models.CASCADE)
 
-  def __str__(self):
-    return self.product
+#   def __str__(self):
+#     return self.product
   
 
