@@ -73,7 +73,7 @@
     margin: 1vmin;
     padding: 1vmin;
     color: #c49474;
-    background-color: #c4b1ac;
+    background-color: lightgrey;
     font-size: 2vmin;
     font-weight: bold;
     text-decoration: none;
@@ -97,7 +97,7 @@
   button:disabled,
   form:invalid button[type="submit"] {
     cursor: not-allowed;
-    background-color: #c49474;
+    background-color: lightslategrey;
   }
   
   button[type="submit"] {

@@ -53,6 +53,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'corsheaders.middleware.CorsMiddleware',
+    'django.contrib.sessions.middleware.SessionMiddleware',
 ]
 
 ROOT_URLCONF = 'shopapp.urls'
@@ -148,4 +149,5 @@ REST_FRAMEWORK = {
     ),
 }
   
-
+CSRF_TRUSTED_ORIGINS = ['http://localhost:3000']
+SESSION_COOKIE_SECURE = True

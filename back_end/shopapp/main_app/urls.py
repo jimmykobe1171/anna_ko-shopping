@@ -17,9 +17,10 @@ urlpatterns = [
     path('register', SignupView.as_view()),
     path('login', LoginView.as_view(), name='login'),
     path('logout', LogoutView.as_view()),
-    path('delete', DeleteUserView.as_view),
-    path('csrf_cookie', GetCSRFToken.as_view()),path('user', GetUserProfileView.as_view()),
-    path('update', UpdateUserProfileView.as_view()),
+    # path('api/users/delete', DeleteUserView.as_view),
+    path('csrf_cookie', GetCSRFToken.as_view()),
     path('user', GetUserProfileView.as_view()),
+    path('update', UpdateUserProfileView.as_view()),
+    
    
  ]

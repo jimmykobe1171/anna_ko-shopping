@@ -26,22 +26,19 @@ import UserSettingPage from "../UserSettingPage/UserSettingPage";
 
 export default function App() {
   const [user, setUser] = useState([]);
+  // function signup(searchTerm) {
+  //   fetch(
+  //     ``
+  //   )
+  //     .then((res) => res.json())
+  //     .then((result) => {
+  //       setGifs(result.data);
+  //       // let gifRes = result.data;
+  //       // return setGifs([...gifs, gifRes]);
+  //     });
+  // }
+  // console.log("statedata: ", gifs);
 
-//   function getUser() {
-//     let data
-//     axios.get('http://127.0.0.1:8000/profiles/login/')
-//       .then(res => {
-//         data = res.data;
-//         setUser(data);
-//       })
-//       .catch(err => {
-//         console.log(err);
-//       }
-//       )
-//   }
-//   useEffect(()=>{
-//   userCall()
-// },[])
 
 
   return (
@@ -51,11 +48,12 @@ export default function App() {
           <Route index element={<HomePage />} />
           <Route path='cart' element={<Cart />} />
           <Route path="auth" element={<AuthPage setUser={setUser} />} />
-          <Route path='women' element={<Women />} />
+          <Route path='women' element={<Women />}  />
+            
           <Route path='men' element={<Men />} />
           <Route path='kids' element={<Kids />} />
           <Route path='product' element={<ProductCard />} />
-          <Route path='products' element={<ProductList />} />
+          <Route path='women/products' element={<ProductList />} />
           <Route path='search' element={<Search />} />
           {/* <Route
               path="/settings"

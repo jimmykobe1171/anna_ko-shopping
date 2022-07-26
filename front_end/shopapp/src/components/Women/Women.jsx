@@ -1,4 +1,4 @@
-import ProductList from "../ProductList/ProductList";
+import ProductList from "../ProductList/ProductList"
 import { Link } from "react-router-dom"
 import Button from '../Button/Button'
 export default function Women(){

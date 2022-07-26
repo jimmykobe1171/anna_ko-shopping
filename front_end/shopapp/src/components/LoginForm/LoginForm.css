@@ -105,13 +105,13 @@ button.btn-xs {
 button:disabled,
 form:invalid button[type="submit"] {
     cursor: not-allowed;
-    background-color: #c49474;
+    background-color: lightslategray;
 }
 
 button[type="submit"] {
     grid-column: span 2;
     margin: 1vmin 0 0;
-    color: #373619;
+    color: lightgrey;
     width: 5fr;
 }
 

@@ -8,6 +8,7 @@ from rest_framework import viewsets
 from django.contrib import auth
 from rest_framework import permissions 
 from django.views.decorators.csrf import ensure_csrf_cookie, csrf_protect
+from django.views.decorators.csrf import ensure_csrf_cookie
 from django.utils.decorators import method_decorator
 from django.contrib.auth.models import User
 @method_decorator(csrf_protect, name='dispatch')
@@ -62,7 +63,7 @@ class LoginView(APIView):
     permission_classes = (permissions.AllowAny, )
     def post(self, request, format=None):
         data= self.request.data
-        isername = data['username']
+        username = data['username']
         password = password['password']
         try:
 
@@ -106,7 +107,7 @@ class GetUserProfileView(APIView):
 
 
 class UpdateUserProfileView(APIView):
-    def get(self, request, format=None):
+    def post(self, request, format=None):
         try:
             user = self.request.user
             username = user.username
