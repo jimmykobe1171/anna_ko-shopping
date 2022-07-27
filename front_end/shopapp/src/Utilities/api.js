@@ -37,7 +37,9 @@ export async function changeUsername(userData) {
 
 export async function changePassword(userData){
     return sendRequest(`${BASE_URL}/changePassword`,'POST', userData )
+
 }
+
 
 
 

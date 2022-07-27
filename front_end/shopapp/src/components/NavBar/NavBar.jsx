@@ -11,13 +11,16 @@ const NavBar = ({ user, setUser }) => {
         <Fragment>
             <div className='navbar-container'>
                 <div className="nav-links-container">
-                    <Link className="nav-link" to='/women'>
+                    <Link className="nav-link" to='/woment'>
                         WOMEN
                     </Link>
                     &nbsp; | &nbsp;
                     <Link className="nav-link" to='/men'>MEN</Link>
                     &nbsp; | &nbsp;
                     <Link className="nav-link" to='/kids'>KIDS</Link>
+                    &nbsp; | &nbsp;
+                    <Link className="nav-link" to='/allproduct'>All Product</Link>
+                    
                     
                 </div>
                 <Link className="logo-container" to='/'>

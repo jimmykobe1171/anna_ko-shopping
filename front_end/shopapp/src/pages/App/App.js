@@ -15,30 +15,85 @@ import HomePage from "../HomePage/HomePage";
 import Cart from "../Cart/Cart";
 import Footer from "../../components/Footer/Footer";
 import UserSettingPage from "../UserSettingPage/UserSettingPage";
-// import ProductCard from "../../components/ProductCard/ProductCard";
-//import UserProfilePage from "../UserProfilePage/UserProfilePage";
-// import SideBar from "../../components/SideBar/SideBar";
-// import axios from 'axios'
-// import { useState, useEffect } from 'react'
+import React from "react"
+import {useEffect} from 'react'
+import axios from 'axios'
+// import ProductList from "../ProductList/ProductList"
+import { Link } from "react-router-dom"
+import { render } from "@testing-library/react";
+// export default function Women(){
+// class List extends React.Component{
+//     constructor() {
+//         super();
+//         this.state = {
+//             data: []
+//         };
+//     }
+
+//     fetchData() {
+//         fetch('http://127.0.0.1:8000/api/product/')
+//         .then(response => response.json())
+//         .then((data) => {
+//             this.setState({
+//                 data: data
+//             })
+//         })
+//     }
+//     componentDidMount() {
+//         this.fetchData();
+//         console.log(this.fetchData)
+//     }
+//     render() {
+//         const empData = this.state.data;
+//         const item = empData.map((emp) =>
+//             <div key={emp.id}>
+//                 <div>{emp.brand}</div>
+//                 <div>{emp.price}</div>
+//                 <div>{emp.description}</div>
+//                 <div>{emp.category}</div>
+//             </div>
+
+//         )
+//         return(
+//             <h1 key={item.id}>{item.brand}- {item.description}</h1>
+//         )
+//     }
+// }
+
+  
+
+// //         {/* <h1>All Designers</h1>
+// //         <Link to="products"><h3>Gucci</h3></Link>
+// //         <Link to='products'><h3>Valentino</h3></Link> */}
+
+// //     </div>
+// //     </>
+// //     )
+// // 
 
 
 
 
 export default function App() {
   const [user, setUser] = useState([]);
-  // function signup(searchTerm) {
-  //   fetch(
-  //     ``
-  //   )
-  //     .then((res) => res.json())
-  //     .then((result) => {
-  //       setGifs(result.data);
-  //       // let gifRes = result.data;
-  //       // return setGifs([...gifs, gifRes]);
-  //     });
-  // }
-  // console.log("statedata: ", gifs);
-
+  const [products, setProducts] = useState();
+    function componentDidMount() {
+		//console.log('it mounted');
+		let data;
+		axios.get('http://localhost:8000/api/product/')
+			.then((res) => {
+				data = res.data;
+				console.log(data);
+               
+				setProducts(data);
+			})
+			.catch((err) => {});
+	}
+	useEffect(() => {
+		componentDidMount();
+	}, []);
+  
+ 
 
 
   return (
@@ -48,12 +103,12 @@ export default function App() {
           <Route index element={<HomePage />} />
           <Route path='cart' element={<Cart />} />
           <Route path="auth" element={<AuthPage setUser={setUser} />} />
-          <Route path='women' element={<Women />}  />
+           <Route path='women' element={<Women products={products}/>}  /> 
             
           <Route path='men' element={<Men />} />
           <Route path='kids' element={<Kids />} />
           <Route path='product' element={<ProductCard />} />
-          <Route path='women/products' element={<ProductList />} />
+          <Route path='allproduct' element={<ProductList products={products}/>} /> 
           <Route path='search' element={<Search />} />
           {/* <Route
               path="/settings"
