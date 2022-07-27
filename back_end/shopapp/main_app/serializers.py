@@ -1,35 +1,35 @@
 from rest_framework import serializers
 from .models import Product
 from .models import UserProfile
-from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
+# from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 
-from rest_framework.validators import UniqueValidator
-from .models import User
+# from rest_framework.validators import UniqueValidator
+# from .models import User
 from django.contrib.auth.models import User
 
-class UserSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = User
-        fields = [
-            "id", 
-            "username", 
-            "email", 
-            "password", 
+# class UserSerializer(serializers.ModelSerializer):
+#     class Meta:
+#         model = User
+#         fields = [
+#             "id", 
+#             "username", 
+#             "email", 
+#             "password", 
             
-        ]
-    email = serializers.EmailField(
-            required=True,
-            validators=[UniqueValidator(queryset=User.objects.all())]
-            )
-    username = serializers.CharField(
-            validators=[UniqueValidator(queryset=User.objects.all())]
-            )
-    password = serializers.CharField(min_length=8)
+#         ]
+#     email = serializers.EmailField(
+#             required=True,
+#             validators=[UniqueValidator(queryset=User.objects.all())]
+#             )
+#     username = serializers.CharField(
+#             validators=[UniqueValidator(queryset=User.objects.all())]
+#             )
+    # password = serializers.CharField(min_length=8)
 
-    def create(self, validated_data):
-        user = User.objects.create_user(validated_data['username'], validated_data['email'],
-             validated_data['password'])
-        return user
+    # def create(self, validated_data):
+    #     user = User.objects.create_user(validated_data['username'], validated_data['email'],
+    #          validated_data['password'])
+    #     return user
 
     
 class UserProfileSerializer(serializers.ModelSerializer):
