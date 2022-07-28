@@ -1,55 +1,40 @@
-import { Link } from "react-router-dom"
-
+import './ProductList.css';
 const ProductList=({products})=> {
-    //const [product, setProduct]= useState({
-    //     brand:'',
-    //     description:'', 
-    //     price:'',
+  //const [product, setProduct]= useState({
+  //     brand:'',
+  //     description:'', 
+  //     price:'',
 
-    // });
-    // const handleChange =(e)=> {
-    //     e.preventDefault();
-        
-    // }
-    const filtered = products.filter(obj => {
-      return obj.category === 'women';
-    });
+  // });
+  // const handleChange =(e)=> {
+  //     e.preventDefault();
+      
+  // }
+  const filtered = products.filter(obj => {
+    return obj.category === 'men';
+  });
 
-    console.log(filtered)
-    return (
-      <div>
-        {products.map(product => {
-          return (
-            <div key={product.id}>
-              <h2>{product.brand}</h2>
-              <h2>$ {product.price}</h2>
-              <h2> {product.descriprion}</h2>
-              <h2>{product.category}</h2>
-              <h2>{product.name}</h2>
+  console.log(filtered)
+  return (
+    <div>
+      {filtered.map(product => {
+        return (
+          <div className="user-setting">
+          <div key={product.id}>
+            <h4>{product.brand}</h4>
+            <h4>$ {product.price}</h4>
+            <h4> {product.descriprion}</h4>
   
-              
+            {/* <h4>{product.name}</h4> */}
             </div>
-          );
-        })}
-      </div>
-    );
-  }
-  
-    // return (
-    //   // <div>
-    //   // {Object.values(employee).map((value, index) => {
-    //   //   return (
-    //   //     <div key={index}>
-    //   //       <h2>{value}</h2>
-    //   //       </div>
 
-    //   <div>
-    //     {products.map(({id, brand})=>(
-    //       <div key={id}>
-    //         <h1>{brand}</h1>
-    //         <h1>{brand[0]}</h1>
-    //       </div>
-    //     ))}
-    //   </div>
-    // )}
-     export default ProductList
+            
+          </div>
+        );
+      })}
+    </div>
+  );
+}
+
+  
+   export default ProductList

@@ -1,4 +1,24 @@
-.user-setting {
+/* .product-grid {
+    display: grid;
+    grid: auto / repeat(4, 1fr);
+    grid-gap: 40px 20px;
+}.row {
+    display: flex;
+    flex-wrap: wrap;
+    padding: 0 4px;
+  }
+  
+  /* Create two equal columns that sits next to each other */
+  .column {
+    flex: 50%;
+    padding: 0 4px;
+  }
+  
+   img {
+    margin-top: 8px;
+    vertical-align: middle;
+  }
+.user-setting { 
     height: 100%;
 }
 
@@ -6,8 +26,9 @@
     height: 100px;
 }
 
-.user-setting, .form-password, .form-useravatar {
-    grid-template-columns: 4fr;
+ .user-setting, .form-password, .form-useravatar {
+     grid: auto / repeat(3, 2fr); 
+     grid-template-columns: 4fr; 
     padding: 3vmin;
     background-color: white;
     border: .1vmin solid #373619;
@@ -18,14 +39,14 @@
     margin-top: 30px;
     margin-left: auto;
     margin-right: auto;
-}
+} */ 
 
-p.error-message {
+ p.error-message {
     color: red;
     text-align: center;
 }
-
- form {
+ 
+  form {
     display: flex;
     flex-direction: column;
     grid-template-rows: 8fr;
@@ -40,7 +61,7 @@ p.error-message {
      -moz-box-direction: normal;
     -webkit-box-direction: normal;
 }
-
+ 
 
 .input {
     margin: auto 40px 6px;
@@ -51,7 +72,7 @@ label {
     display: flex;
     align-items: center;
 
-}
+} 
 
 input {
     padding: 9px 0 7px 8px;
@@ -97,14 +118,14 @@ a.button {
 button.btn-sm {
     font-size: 1.5vmin;
     padding: .6vmin .8vmin;
-}
+} 
 
-button.btn-xs {
+ button.btn-xs {
     font-size: 1vmin;
     padding: .4vmin .5vmin;
-}
+} 
 
-button:disabled,
+ button:disabled,
 form:invalid button[type="submit"] {
     cursor: not-allowed;
     background-color: #c49474;
@@ -119,4 +140,4 @@ button[type="submit"] {
 
 h1 {
     font-size: 2rem;
-}
+} 

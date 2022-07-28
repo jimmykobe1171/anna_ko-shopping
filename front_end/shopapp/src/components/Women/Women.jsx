@@ -16,7 +16,7 @@ const Women=({products})=> {
     
     return (
       <>
-          <div className="row">
+          <div className="product-grid">
               <div className="column">
                   {/* <Link to='women'>
                       <Button buttonType='inverted'>Shop Women</Button>
@@ -31,7 +31,8 @@ const Women=({products})=> {
                       {/* <Button buttonType='inverted'>Shop Men</Button>
                   </Link> */}
 
-                  <img src="https://cdn-static.farfetch-contents.com/cms-cm10/caas/v1/media/3670276/data/47355043f142e0642a2c4a6e85583d2a/3x4_three-columns/480/data.jpeg" alt="" />
+                  <img src="https://crfashionbook.com/wp-content/uploads/2022/03/CR-5_V1-e1646507831157.jpg" alt="" />
+                  <h4>$500</h4>
               </div>
               <div className="column">
                   {/* <Link to="kids">
@@ -39,6 +40,7 @@ const Women=({products})=> {
                   </Link> */}
 
                   <img src="https://cdn-static.farfetch-contents.com/cms-cm10/caas/v1/media/3671646/data/c1d9914c4cdc1bdcbeacd0bf27753288/1x1_messaging-side/637/data.jpeg" alt="" />
+                  <h4>$700</h4>
 
               </div>
 

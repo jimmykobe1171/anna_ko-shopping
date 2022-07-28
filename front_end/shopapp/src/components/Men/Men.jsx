@@ -20,12 +20,13 @@ const Men=({products})=> {
       {filtered.map(product => {
         return (
           <div className="user-setting">
-          <div key={product.id}>
+
+          <div className='column' key={product.id}>
             <h4>{product.brand}</h4>
             <h4>$ {product.price}</h4>
             <h4> {product.descriprion}</h4>
   
-            <h4>{product.name}</h4>
+            {/* <h4>{product.name}</h4> */}
             </div>
 
             

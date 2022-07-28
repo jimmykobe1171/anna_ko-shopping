@@ -99,7 +99,7 @@ export default function App() {
            <Route path='women' element={<Women products={products}/>}  /> 
             
           <Route path='men' element={<Men products={products}/>} />
-          <Route path='kids' element={<Kids />} />
+          <Route path='kids' element={<Kids  products={products} />} />
           <Route path='product' element={<ProductCard />} />
          
           <Route path='allproduct' element={<ProductList products={products}/>} /> 
