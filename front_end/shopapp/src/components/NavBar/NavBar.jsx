@@ -11,7 +11,7 @@ const NavBar = ({ user, setUser }) => {
         <Fragment>
             <div className='navbar-container'>
                 <div className="nav-links-container">
-                    <Link className="nav-link" to='/woment'>
+                    <Link className="nav-link" to='/women'>
                         WOMEN
                     </Link>
                     &nbsp; | &nbsp;
@@ -32,6 +32,8 @@ const NavBar = ({ user, setUser }) => {
                     <Link className="nav-link" to='/cart'>
                         SHOPPING CART
                     </Link>
+                    &nbsp; | &nbsp;
+                    <Link className="nav-link" to='/settings'>Profile</Link>
                     &nbsp; | &nbsp;
                     <Link className="nav-link" to='/auth'>LOGIN</Link>
 

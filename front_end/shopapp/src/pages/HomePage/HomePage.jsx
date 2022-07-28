@@ -46,7 +46,7 @@ export default function Home() {
 
 
     return (
-        <>
+        <><div></div>
             <div className="section-container">
                 <div className="section-container">
                     <Link to='women'>

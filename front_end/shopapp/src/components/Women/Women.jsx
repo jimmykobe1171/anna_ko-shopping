@@ -1,75 +1,54 @@
-// import React from "react"
 
-// // import ProductList from "../ProductList/ProductList"
-// import { Link } from "react-router-dom"
-// import { render } from "@testing-library/react";
-// import ShoppingItem from "../ShoppingItem/ShoppingItem";
-// export default function Women(){
-// // class List extends React.Component{
-// //     constructor() {
-// //         super();
-// //         this.state = {
-// //             data: []
-// //         };
-// //     }
+import './Women.css';
+import React from "react"
+const Women=({products})=> {
+    //const [product, setProduct]= useState({
+    //     brand:'',
+    //     description:'', 
+    //     price:'',
 
-// //     fetchData() {
-// //         fetch('http://127.0.0.1:8000/api/product/')
-// //         .then(response => response.json())
-// //         .then((data) => {
-// //             this.setState({
-// //                 data: data
-// //             })
-// //         })
-// //     }
-// //     componentDidMount() {
-// //         this.fetchData();
-// //     }
-// //     render() {
-// //         const empData = this.state.data;
-// //         const item = empData.map((emp) =>
-// //             <div key={emp.id}>
-// //                 <div>{emp.brand}</div>
-// //                 <div>{emp.price}</div>
-// //                 <div>{emp.description}</div>
-// //                 <div>{emp.category}</div>
-// //             </div>
+    // });
+    // const handleChange =(e)=> {
+    //     e.preventDefault();
+        
+    // }
 
-// //         )
-// //         return(
-// //             <h1>Anna Hello</h1>
-// //         )
-// //     }
-// // }
-
-//     // import Button from '../Button/Button'
-
-//     return({
-//         <>
-//     <div>
-//         <div>{irem.brand}</div>
-//         <div></div>
-//         <div></div>
-
-//         {/* <h1>All Designers</h1>
-//         <Link to="products"><h3>Gucci</h3></Link>
-//         <Link to='products'><h3>Valentino</h3></Link> */}
-
-//     </div>
-//     </>
-//     )
-//     }
-
-import Button from '../Button/Button'
-export default function Women(){
-
+    
     return (
-        <h1>{} </h1>
-        // <div className="section-container">
-        // <Button buttonType='inverted'>Shop Kids</Button>
-        
-        // <img src="https://cdn-static.farfetch-contents.com/cms-cm10/caas/v1/media/3671646/data/c1d9914c4cdc1bdcbeacd0bf27753288/1x1_messaging-side/637/data.jpeg" alt="" />
-        
-        // </div>
-    )
+      <>
+          <div className="row">
+              <div className="column">
+                  {/* <Link to='women'>
+                      <Button buttonType='inverted'>Shop Women</Button>
+                  </Link> */}
+
+                  <img src='https://cdn-static.farfetch-contents.com/cms-cm10/caas/v1/media/3670830/data/c155d53e0c53cd51241840519c5f11f9/1x1_two-columns/637/data.jpeg' alt="" />
+                  <h4>$500</h4>
+
+              </div>
+              <div className="column">
+                  {/* <Link to="men"> */}
+                      {/* <Button buttonType='inverted'>Shop Men</Button>
+                  </Link> */}
+
+                  <img src="https://cdn-static.farfetch-contents.com/cms-cm10/caas/v1/media/3670276/data/47355043f142e0642a2c4a6e85583d2a/3x4_three-columns/480/data.jpeg" alt="" />
+              </div>
+              <div className="column">
+                  {/* <Link to="kids">
+                      <Button buttonType='inverted'>Shop Kids</Button>
+                  </Link> */}
+
+                  <img src="https://cdn-static.farfetch-contents.com/cms-cm10/caas/v1/media/3671646/data/c1d9914c4cdc1bdcbeacd0bf27753288/1x1_messaging-side/637/data.jpeg" alt="" />
+
+              </div>
+
+              {/* <Women />
+          <Men />
+          <Kids /> */}
+              <div className="dummy" />
+          </div>
+
+      </>
+  );
 }
+     export default Women

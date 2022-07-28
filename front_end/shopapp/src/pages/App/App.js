@@ -7,6 +7,7 @@ import ProductList from "../../components/ProductList/ProductList";
 import Search from "../../components/Search/Search";
 import "./App.css";
 // import AuthPage from "../AuthPage/AuthPage";
+
 import { useState } from "react";
 import { Routes, Route } from "react-router-dom";
 // import { getUser } from "../../utilities/users-service";
@@ -62,14 +63,6 @@ import { render } from "@testing-library/react";
 
   
 
-// //         {/* <h1>All Designers</h1>
-// //         <Link to="products"><h3>Gucci</h3></Link>
-// //         <Link to='products'><h3>Valentino</h3></Link> */}
-
-// //     </div>
-// //     </>
-// //     )
-// // 
 
 
 
@@ -105,12 +98,13 @@ export default function App() {
           <Route path="auth" element={<AuthPage setUser={setUser} />} />
            <Route path='women' element={<Women products={products}/>}  /> 
             
-          <Route path='men' element={<Men />} />
+          <Route path='men' element={<Men products={products}/>} />
           <Route path='kids' element={<Kids />} />
           <Route path='product' element={<ProductCard />} />
+         
           <Route path='allproduct' element={<ProductList products={products}/>} /> 
           <Route path='search' element={<Search />} />
-          {/* <Route
+           <Route
               path="/settings"
               element={
                 <UserSettingPage
@@ -119,7 +113,7 @@ export default function App() {
                   
                 />
               }
-            ></Route> */}
+            ></Route> 
           {/* <Footer /> */}
         </Route>
       </Routes>
