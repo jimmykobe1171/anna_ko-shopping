@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import './UserSettingPage.css';
-import * as usersService from '../../Utilities/api'
+// import {signUp} from '../../Utilities/api'
 
 
 export default function UserSettingPage({ user, setUser }) {
@@ -71,8 +71,8 @@ export default function UserSettingPage({ user, setUser }) {
             user.oldPassword = passwords.oldPassword;
             user.newPassword = passwords.newPassword;
             // console.log("user", user);
-            const newUser = await usersService.changePassword(user);
-            setUser(newUser);
+            // const newUser = await usersService.changePassword(user);
+            // setUser(newUser);
             setChanged(true)
             alert('Change password success');
         } catch {

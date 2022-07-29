@@ -1,11 +1,13 @@
 import { useState } from 'react';
-import * as usersService from '../../Utilities/api'
+import { login } from '../../Utilities/api'
+import { useNavigate } from "react-router-dom";
 
 import './LoginForm.css';
 
 export default function LoginForm({ setUser }) {
+  const navigate = useNavigate();
   const [credentials, setCredentials] = useState({
-    email: '',
+    username: '',
     password: ''
   });
   const [error, setError] = useState('');
@@ -16,11 +18,11 @@ export default function LoginForm({ setUser }) {
   }
 
   async function handleSubmit(evt) {
-    
     evt.preventDefault();
     try {
-     const user = await usersService.login(credentials);
-      setUser(user);
+      await login(credentials);
+      // route to home page
+      navigate("../")
     } catch {
       setError('Log In Failed - Try Again');
     }
@@ -30,10 +32,9 @@ export default function LoginForm({ setUser }) {
     <div>
       <div className="form-container" >
           <h1></h1>
-        <form autoComplete="off" >
+        <form autoComplete="off" onSubmit={handleSubmit}>
           <label></label>
-          <input type="text" id="username" placeholder="Enter Username" />
-          <input type="text" placeholder='Email' name="email" value={credentials.email} onChange={handleChange} required />
+          <input type="text" name="username" placeholder="Enter Username" value={credentials.username} onChange={handleChange} required/>
           <label></label>
           <input type="password" placeholder='Password' name="password" value={credentials.password} onChange={handleChange} required />
           <button type="submit">LOG IN</button>
