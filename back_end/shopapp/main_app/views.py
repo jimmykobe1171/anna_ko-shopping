@@ -1,20 +1,41 @@
 from django.shortcuts import render
 from rest_framework import status
-from rest_framework.decorators import api_view
-from rest_framework.response import Response
+
 from django.http import JsonResponse
 
-# from .serializers import MyTokenObtainPairSerializer, RegisterSerializer
-# from rest_framework_simplejwt.views import TokenObtainPairView
-# from rest_framework import generics
-# from django.contrib.auth.models import User
-# from rest_framework.permissions import AllowAny, IsAuthenticated
-# from rest_framework.decorators import api_view, permission_classes
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from . serializers import *
 from . models import *
+from django.shortcuts import render
+from rest_framework import status
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
+from django.http import JsonResponse
 
+
+
+
+
+
+# from .serializers import MyTokenObtainPairSerializer, RegisterSerializer
+# from rest_framework_simplejwt.views import TokenObtainPairView
+# from rest_framework import generics
+from django.contrib.auth.models import User
+# from rest_framework.permissions import AllowAny, IsAuthenticated
+# from rest_framework.decorators import api_view, permission_classes
+from rest_framework.response import Response
+from rest_framework.views import APIView
+from .serializers import *
+from .models import *
+from django.contrib.auth import authenticate, login, logout
+
+# class ProductView(APIView):
+#     serializer_class = ProductSerializer
+#     def get(self, request):
+
+#         products = [{'brand': product.brand,'descriprion': product.description, 'name': product.name, 'price': product.price, 'category':product.category } for product in Product.objects.all()]
+#         return Response(products)
 
 
 
@@ -25,75 +46,37 @@ class ProductView(APIView):
         products = [{'brand': product.brand,'descriprion': product.description, 'name': product.name, 'price': product.price, 'category':product.category } for product in Product.objects.all()]
         return Response(products)
 
-    # def get(self, request):
-    #     product = Product.objects.all()
-        
-    #     serializer = ProductSerializer(product, many = True)
-
-    #     return Response({"product": serializer.data})
+    
 
 
 
-# from django.shortcuts import render
-# from . models import *
-# from . serializers import *
-# from rest_framework.views import APIView
-# from rest_framework import status
-# from rest_framework.response import Response
-# from rest_framework import viewsets  
-# from django.contrib import auth
-# from rest_framework import permissions 
-# from django.views.decorators.csrf import ensure_csrf_cookie, csrf_protect, csrf_exempt
-# from django.views.decorators.csrf import ensure_csrf_cookie
-# from django.utils.decorators import method_decorator
-# from django.contrib.auth.models import User
-# from django.urls import re_path
-
-
-# # from django.core.exceptions import PermissionDenied
-
-# # def edit(request, pk):
-# #     if not request.user.is_staff:
-# #         raise PermissionDenied
-# @method_decorator(csrf_exempt, name='dispatch')
-# class CheckAuthenticatedView(APIView):
-#     def get(self, request, format=None):
-#         try:
-#             isAuthenticated = User.is_authenticated
-#             if isAuthenticated:
-#                 return Response({'isAuthenticated': 'success'})
-#             else:
-#                 return Response({'isAuthenticated': 'error'})
-#         except:        
-#             return Response({'error': 'Something went wrong during authenticated'})
 
 # @method_decorator(csrf_exempt, name='dispatch')
-# class SignupView(APIView):
-#     permission_classes =(permissions.AllowAny, )
+class SignupView(APIView):
+    # permission_classes =(permissions.AllowAny, )
 
-#     def post(self, request, format=None):
-#         data = self.request.data
-#         username = data['username']
-#         password = data['password']
-#         re_password == data['password']
-#         try:
-#             if password == re_password:
-#                     if User.objects.filter(username=username).exists():
-#                         return Response({'error': 'Username already exists'})
-#                     else:
-#                         if len(password)< 6:
-#                             return Response({'error': 'Password must be at least 6 characters'})
-#                         else: 
-#                             user = User.objects.create_user(username=username, password=password)
-#                             user.save()
-#                             user = User.objects.get(id=user.id)
-#                             user_profile = UserProfile(user=user.id, first_name='', last_name='', phone='', city='', address='')
-#                             user_profile.save()
-#                             return Response({'success': 'User created successfully'})
-#             else: 
-#                 return Response({ 'error': 'Passwords do not match'}) 
-#         except:
-#             return Response({'error': 'Something went wrong during register'})
+    def post(self, request, format=None):
+        data = request.data
+        username = data['username']
+        email = data['email']
+        password = data['password']
+        try:
+            if User.objects.filter(username=username).exists():
+                return Response({'error': 'Username already exists'}, status=status.HTTP_400_BAD_REQUEST)
+            else:
+                if len(password) < 6:
+                    return Response({'error': 'Password must be at least 6 characters'}, status=status.HTTP_400_BAD_REQUEST)
+                else: 
+                    user = User.objects.create_user(username=username, password=password, email=email)
+                    user.save()
+                    user_profile = UserProfile(user=user)
+                    user_profile.save()
+                    # login user
+                    login(request, user)
+                    return Response({'success': 'User created successfully'})
+        except Exception as e:
+            print(e)
+            return Response({'error': 'Something went wrong during register'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 # @method_decorator(ensure_csrf_cookie, name='dispatch')
 # class GetCSRFToken(APIView):
@@ -103,30 +86,32 @@ class ProductView(APIView):
 #         return Response({'succeess': 'CSRF cookie set'})
 
 # @method_decorator(csrf_protect, name='dispatch')
-# class LoginView(APIView):
-#     permission_classes = (permissions.AllowAny, )
-#     def post(self, request, format=None):
-#         data= self.request.data
-#         username = data['username']
-#         password = password['password']
-#         try:
+class LoginView(APIView):
+    # permission_classes = (permissions.AllowAny, )
 
-#             user = auth.authenticate(username=username, password=password)
-#             if user is not None:
-#                 auth.login(request, user)
-#                 return Response({'success': 'User authenticated', 'username': username})
-#             else:
-#                 return Response({'error': 'error Authenticating'})
-#         except:
-#             return Response({'error': 'Something went wrong during Log In'})
+    def post(self, request, format=None):
+        data= request.data
+        username = data['username']
+        password = data['password']
 
-# class LogoutView(APIView):
-#     def post(self, request, format=None):
-#         try:
-#             auth.logout(request)
-#             return Response({'success': 'Loggout '})
-#         except:
-#             return Response({'error': 'Something went wrongduring logging out'})
+        try:
+            user = authenticate(request, username=username, password=password)
+            if user is not None:
+                login(request, user)
+                return Response({'success': 'User authenticated'})
+            else:
+                return Response({'error': 'error Authenticating'}, status=status.HTTP_400_BAD_REQUEST)
+        except:
+            return Response({'error': 'Something went wrong during Log In'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+
+class LogoutView(APIView):
+    def get(self, request, format=None):
+        try:
+            logout(request)
+            return Response({'success': 'Loggout'})
+        except:
+            return Response({'error': 'Something went wrongduring logging out'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 # class DeleteUserView(APIView):
 #     def delete(self, request, format=None):
@@ -171,26 +156,3 @@ class ProductView(APIView):
 #         except:
 #             return Response({'error': 'Something went wrong during updating'})
 
-
-
-#     # def post(self, request, format='json'):
-#     #     serializer = UserSerializer(data=request.data)
-#     #     if serializer.is_valid():
-#     #         user = serializer.save()
-#     #         if user:
-#     #             token = Token.objects.create(user=user)
-#     #             json = serializer.data
-#     #             json['token'] = token.key
-#     #             return Response(json, status=status.HTTP_201_CREATED)
-#     #     retuen Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-# # class ProductViews(APIView):
-# #     serializer_class = ProductSerializer
-# #     queryset = Product.object.all()
-
-# # Create your views here.
-# # from django.http import HttpResponse
-
-# # # Define the home view
-# # def home(request):
-# #   return HttpResponse('<h1>Hello shopping app</h1>')
