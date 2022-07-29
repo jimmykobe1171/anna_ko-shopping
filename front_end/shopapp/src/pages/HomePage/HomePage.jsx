@@ -9,7 +9,7 @@ import Button from '../../components/Button/Button'
 import "./HomePage.css";
 
 import axios from 'axios'
-export default function Home() {
+export default function Home({user}) {
     const [products, setProducts] = useState();
     function componentDidMount() {
 		//console.log('it mounted');
@@ -46,9 +46,10 @@ export default function Home() {
 
 
     return (
-        <><div></div>
+        <>
             <div className="section-container">
                 <div className="section-container">
+                  
                     <Link to='women'>
                         <Button buttonType='inverted'>Shop Women</Button>
                     </Link>

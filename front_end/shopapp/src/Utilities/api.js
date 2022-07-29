@@ -36,11 +36,11 @@ export async function logout() {
 }
 
 export async function changeUsername(userData) {
-    return sendRequest(`${BASE_URL}/changeUsername`, 'POST', userData)
+    return sendRequest(`${BASE_URL}/profile`, 'POST', userData)
 }
 
 export async function changePassword(userData){
-    return sendRequest(`${BASE_URL}/changePassword`,'POST', userData )
+    return sendRequest(`${BASE_URL}/changePassword/`,'POST', userData )
 }
 
 

@@ -4,7 +4,16 @@ import { Fragment } from "react"
 
 import { Link, Outlet } from "react-router-dom"
 
+// import {logout} from "../../Utilities/users-service"
+
+
 const NavBar = ({ user, setUser }) => {
+	// function handleLogOut() {
+	// 	// Delegate to the users-service
+	// 	userService.logOut()
+	// 	// Update state will also cause a re-render
+	// 	setUser(null)
+	// }
 
 
     return (
@@ -33,10 +42,10 @@ const NavBar = ({ user, setUser }) => {
                         SHOPPING CART
                     </Link>
                     &nbsp; | &nbsp;
-                    <Link className="nav-link" to='/settings'>Profile</Link>
+                    <Link className="nav-link" to='/settings'>Profile </Link>
                     &nbsp; | &nbsp;
-                    <Link className="nav-link" to='/auth'>LOGIN</Link>
-
+                    <Link className="nav-link" to='/auth'>LOGIN </Link>
+                    {/* <Link to="" className="icon" onClick={handleLogOut}>Log Out</Link> */}
                 </div>
             </div>
             <Outlet />

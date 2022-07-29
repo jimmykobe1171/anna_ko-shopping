@@ -46,7 +46,26 @@ class ProductView(APIView):
         products = [{'brand': product.brand,'descriprion': product.description, 'name': product.name, 'price': product.price, 'category':product.category } for product in Product.objects.all()]
         return Response(products)
 
-    
+class UserProfileView(APIView):
+    # serializer_class = UserProfileSerializer(data=request.data)
+    def post(self, request, format=None):
+        print("My routs being hit")
+        data = request.data
+        print(data)
+        name = data['name']
+        lastname =  data['lastname']
+        address = data['address']
+        phone = data['phone']
+        # username = data['username']
+        # password = data['password']
+
+        if user_profile.is_valid():
+            user_pofile.save()
+            return Response({'success': 'User profile created successfully'})
+        return Response({'error': 'something goes wrong'})
+        # profile = [{'address': profile.address,'city': profile.city, 'phone': profile.phone, 'user': profile.user,  } for profile in UserProfile.objects.all()]
+        # return Response(profile)
+
 
 
 

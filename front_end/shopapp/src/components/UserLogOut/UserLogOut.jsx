@@ -1,10 +1,14 @@
 import './UserLogOut.css';
-// import { logOut } from '../../utilities/api';
+ 
+ import { login } from '../../Utilities/api'
+import { useNavigate } from "react-router-dom";
+
 
 export default function UserLogOut({ user, setUser }) {
   function handleLogOut() {
     logOut();
-    setUser(null);å
+    setUser(null);
+    navigate("../")
   }
 
   return (

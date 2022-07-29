@@ -1,8 +1,10 @@
 import { useState } from 'react';
 import './UserSettingPage.css';
-// import {signUp} from '../../Utilities/api'
+import {changeUsername} from '../../Utilities/api'
+import { changePassword } from '../../Utilities/api';
+import {useEffect} from 'react'
 
-
+import axios from 'axios'
 export default function UserSettingPage({ user, setUser }) {
     const [username, setUsername] = useState(user.name);
     const [changed, setChanged] = useState(false);
@@ -15,10 +17,32 @@ export default function UserSettingPage({ user, setUser }) {
     )
     const [phone, setPhone] = useState(
     )
-    const [lastname, setLastname] = useState(
+    const [lastname, setLastname] = useState(user.lastname
     )
     const [name, setName] = useState(
     )
+    const [city, setCity] = useState(
+
+        )
+
+ 
+  const [profile, setProfile] = useState(user);
+    function componentDidMount() {
+		//console.log('it mounted');
+		let data;
+		axios.put('http://localhost:8000/api/profile')
+			.then((res) => {
+				data = res.data;
+				console.log(data);
+               
+				setProfile(data);
+			})
+			.catch((err) => {});
+	}
+	useEffect(() => {
+		componentDidMount();
+	}, []);
+
 
     function handleChangePhone(evt) {
         // console.log("new username: " + evt.target.value);
@@ -38,6 +62,10 @@ export default function UserSettingPage({ user, setUser }) {
         // console.log("new username: " + evt.target.value);
         setName(evt.target.value);
     }
+    function handleChangeCity(evt) {
+        // console.log("new username: " + evt.target.value);
+        setCity(evt.target.value);
+    }
 
 
     function handleChangeAddress(evt) {
@@ -50,8 +78,14 @@ export default function UserSettingPage({ user, setUser }) {
         try {
             user.name = username; // update the username.
             console.log(user.lastname)
-            // const newUser = await usersService.changeUsername(user);
-            // setUser(newUser);
+            user.lastname = lastname
+            user.address = address
+            user.phone = phone
+            user.name = name
+            const newUser = changeUsername(user);
+            setUser(newUser);
+            const newName =changeUsername(user)
+            setName(newName)
             alert("Username changed!");
         } catch (error) {
             //   setError('Change username failed - Try Again');
@@ -71,8 +105,8 @@ export default function UserSettingPage({ user, setUser }) {
             user.oldPassword = passwords.oldPassword;
             user.newPassword = passwords.newPassword;
             // console.log("user", user);
-            // const newUser = await usersService.changePassword(user);
-            // setUser(newUser);
+            const newUser = changePassword(user);
+            setUser(newUser);
             setChanged(true)
             alert('Change password success');
         } catch {
@@ -97,7 +131,9 @@ export default function UserSettingPage({ user, setUser }) {
                     <input type="text" placeholder="Lastname" name="username" value={lastname} onChange={handleChangeLastname} required />
                 
 
-
+                    <label>City</label>
+                    <input type="text" placeholder="City" name="name" value={city} onChange={handleChangeCity} required />
+                
                 
                     <label>Address</label>
                     <input type='text'

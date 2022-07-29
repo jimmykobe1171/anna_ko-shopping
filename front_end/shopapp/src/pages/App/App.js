@@ -9,7 +9,7 @@ import "./App.css";
 // import AuthPage from "../AuthPage/AuthPage";
 
 import { useState } from "react";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route , Navigate} from "react-router-dom";
 // import { getUser } from "../../utilities/users-service";
 import AuthPage from "../AuthPage/AuthPage";
 import HomePage from "../HomePage/HomePage";
@@ -70,6 +70,7 @@ import { render } from "@testing-library/react";
 export default function App() {
   const [user, setUser] = useState([]);
   const [products, setProducts] = useState();
+  const[profile, setProfile] = useState();
     function componentDidMount() {
 		//console.log('it mounted');
 		let data;
@@ -85,6 +86,22 @@ export default function App() {
 	useEffect(() => {
 		componentDidMount();
 	}, []);
+
+  // function componentDidMount() {
+	// 	//console.log('it mounted');
+	// 	let data;
+	// 	axios.post('http://localhost:8000/api/profile/')
+	// 		.then((res) => {
+	// 			data = res.data;
+	// 			console.log(data);
+               
+	// 			setProfile(data);
+	// 		})
+	// 		.catch((err) => {});
+	// }
+	// useEffect(() => {
+	// 	componentDidMount();
+	// }, []);
   
  
 
@@ -101,7 +118,7 @@ export default function App() {
           <Route path='men' element={<Men products={products}/>} />
           <Route path='kids' element={<Kids  products={products} />} />
           <Route path='product' element={<ProductCard />} />
-         
+          <Route path="/*" element={<Navigate to="/" />} />
           <Route path='allproduct' element={<ProductList products={products}/>} /> 
           <Route path='search' element={<Search />} />
            <Route
@@ -110,6 +127,8 @@ export default function App() {
                 <UserSettingPage
                   user={user}
                   setUser={setUser}
+                  profile={profile}
+                  
                   
                 />
               }

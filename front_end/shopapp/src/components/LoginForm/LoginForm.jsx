@@ -23,6 +23,7 @@ export default function LoginForm({ setUser }) {
       await login(credentials);
       // route to home page
       navigate("../")
+  
     } catch {
       setError('Log In Failed - Try Again');
     }
