@@ -3,7 +3,7 @@
     width: 100em;
     
     border: 1px, solid black
-    
+    display: grid;
 } */
 .product-grid {
     display: grid;

@@ -18,11 +18,7 @@ export default function UserSettingPage({ user, setUser }) {
     const [lastname, setLastname] = useState(
     )
     const [name, setName] = useState(
-        )
-    
-
-
-
+    )
 
     function handleChangePhone(evt) {
         // console.log("new username: " + evt.target.value);
@@ -53,8 +49,9 @@ export default function UserSettingPage({ user, setUser }) {
         evt.preventDefault();
         try {
             user.name = username; // update the username.
-            const newUser = await usersService.changeUsername(user);
-            setUser(newUser);
+            console.log(user.lastname)
+            // const newUser = await usersService.changeUsername(user);
+            // setUser(newUser);
             alert("Username changed!");
         } catch (error) {
             //   setError('Change username failed - Try Again');
@@ -88,26 +85,29 @@ export default function UserSettingPage({ user, setUser }) {
         <div autoComplete="off" className="form-username">
             <h3>Profile page</h3>
             <form autoComplete="off" className="form-username" onSubmit={handleSubmitUserName}>
-                <div>
+                <label>New Username</label>
+                <input type="text" placeholder="New username" name="username" value={username} onChange={handleChangeUserName} required />
+
+
                     <label>Name</label>
                     <input type="text" placeholder="Name" name="name" value={name} onChange={handleChangeName} required />
-                </div>
-                <div>
+                
+          
                     <label>Lastname</label>
                     <input type="text" placeholder="Lastname" name="username" value={lastname} onChange={handleChangeLastname} required />
-                </div>
+                
 
 
-                <div>
-                    <label htmlFor='address'>Address</label>
-                    <input
+                
+                    <label>Address</label>
+                    <input type='text'
                         name='address'
                         placeholder='Address'
                         value={address}
-                        onChange={handleChangeAddress}
+                        onChange={handleChangeAddress} 
                     />
-                </div>
-                <div>
+                
+               
                     <label>Phone Number</label>
                     <input
                         name='phone'
@@ -115,18 +115,14 @@ export default function UserSettingPage({ user, setUser }) {
                         value={phone}
                         onChange={handleChangePhone}
                     />
-                </div>
-
                 <button type="submit" >Submit</button>
+              
+
+
             </form>
 
 
 
-            <form autoComplete="off" className="form-username" onSubmit={handleSubmitUserName}>
-                <label>New Username</label>
-                <input type="text" placeholder="New username" name="username" value={username} onChange={handleChangeUserName} required />
-                <button type="submit" >Submit</button>
-            </form>
             <form autoComplete="off" className="form-password" onSubmit={handleSubmitPassword}>
                 <label>Password</label>
                 <input type="text" placeholder="Old password" name="oldPassword" required onChange={handleChangePassword} />
