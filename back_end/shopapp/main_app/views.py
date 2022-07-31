@@ -12,23 +12,25 @@ from rest_framework import status
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from django.http import JsonResponse
-
-
-
-
-
-
 # from .serializers import MyTokenObtainPairSerializer, RegisterSerializer
 # from rest_framework_simplejwt.views import TokenObtainPairView
 # from rest_framework import generics
 from django.contrib.auth.models import User
-# from rest_framework.permissions import AllowAny, IsAuthenticated
+from rest_framework.permissions import AllowAny, IsAuthenticated
 # from rest_framework.decorators import api_view, permission_classes
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from .serializers import *
 from .models import *
 from django.contrib.auth import authenticate, login, logout
+from django.utils.decorators import method_decorator
+from django.views.decorators.csrf import csrf_exempt
+
+
+
+
+
+
 
 # class ProductView(APIView):
 #     serializer_class = ProductSerializer
@@ -62,41 +64,8 @@ class ProductDetailView(APIView):
         return Response(serializer_class.data, status=status.HTTP_200_OK)
 
 
-    #     class ProductView(APIView):
-    # serializer_class = ProductSerializer
-    # def get(self, request):
-
-    #     products = [{'brand': product.brand,'descriprion': product.description, 'name': product.name ,  'price': product.price, 'category':product.category } for product in Product.objects.all()]
-    #     return Response(products)
-
-
-# class UserProfileView(APIView):
-#     # serializer_class = UserProfileSerializer(data=request.data)
-#     def post(self, request, format=None):
-#         print("My routs being hit")
-#         data = request.data
-#         print(data)
-#         name = data['name']
-#         lastname =  data['lastname']
-#         address = data['address']
-#         phone = data['phone']
-#         # username = data['username']
-#         # password = data['password']
-
-#         if  user_profile.is_valid():
-#             user_pofile.save()
-#             return Response({'success': 'User profile created successfully'})
-#         return Response({'error': 'something goes wrong'})
-        # profile = [{'address': profile.address,'city': profile.city, 'phone': profile.phone, 'user': profile.user,  } for profile in UserProfile.objects.all()]
-        # return Response(profile)
-
-
-
-
-
 # @method_decorator(csrf_exempt, name='dispatch')
 class SignupView(APIView):
-    # permission_classes =(permissions.AllowAny, )
 
     def post(self, request, format=None):
         data = request.data
@@ -128,7 +97,7 @@ class SignupView(APIView):
 #     def get(self, request, format=None):
 #         return Response({'succeess': 'CSRF cookie set'})
 
-# @method_decorator(csrf_protect, name='dispatch')
+
 class LoginView(APIView):
     # permission_classes = (permissions.AllowAny, )
 
@@ -156,46 +125,44 @@ class LogoutView(APIView):
         except:
             return Response({'error': 'Something went wrongduring logging out'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
-# class DeleteUserView(APIView):
-#     def delete(self, request, format=None):
-#         user = self.request.user
-#         try:
-#             user = User.objects.filter(id=user.id).delete()
-#             return Response({'success': "User deleted"})
-#         except:
-#             return Response({'error': "Something went wrong during deleting user"})
-    
-# class GetUserProfileView(APIView):
-#     def get(self, request, format=None):
-#         try:
-#             user = self.request.user
-#             username = user.username
-#             user = User.objects.get(id=user.id)
-#             user_profile = UserProfile.objects.get(user=user)
-#             user_profile = UserProfileSerializer(user_profile)
-#             return Response({'profile': user_profile.data, 'username':str(username)})
-#         except:
-#             return Response({'error': 'Something went wrong during updating'})
 
+@method_decorator(csrf_exempt, name='dispatch')
+class UserProfileView(APIView):
+    permission_classes = [IsAuthenticated]
 
-# class UpdateUserProfileView(APIView):
-#     def post(self, request, format=None):
-#         try:
-#             user = self.request.user
-#             username = user.username
-#             data = self.request.data
-#             first_name = data['first_name']
-#             last_name = data['last_name']
-#             phone = data['phone']
-#             address = data['address']
-#             city = data['city']
+    def get(self, request, format=None):
+        try:
+            user = request.user
+            # user = User.objects.get(id=user.id)
+            user_profile = UserProfile.objects.get(user=user)
+            # user_profile = UserProfileSerializer(user_profile)
+            result = {
+                'username': user.username,
+                'email': user.email,
+                'first_name': user.first_name,
+                'last_name': user.last_name,
+                'address': user_profile.address,
+                'phone': user_profile.phone,
+                'city': user_profile.city
+            }
+            return Response(result)
+        except Exception as e:
+            print(e)
+            return Response({'error': 'Something went wrong'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
-#             user = User.objects.get(id=user.id)
-#             UserProgile.objects.filter(user=user).update(first_name=first_name, last_name=last_name, phone=phone, address=address, city=city)
-
-#             user_profile = UserProfile.objects.get(user=user)
-#             user_profile = UserProfileSerializer(user_profile)
-#             return Response({'profile': user_profile.data, 'username':str(username)})
-#         except:
-#             return Response({'error': 'Something went wrong during updating'})
-
+    def post(self, request, format=None):
+        try:
+            user = request.user
+            data = request.data
+            first_name = data['first_name']
+            last_name = data['last_name']
+            phone = data['phone']
+            address = data['address']
+            city = data['city']
+            User.objects.filter(id=user.id).update(first_name=first_name, last_name=last_name)
+            UserProfile.objects.filter(user=user).update(phone=phone, address=address, city=city)
+            return Response({'success': 'Profile change is saved successfully'})
+        except Exception as e:
+            print(e)
+            return Response({'error': 'Something went wrong during updating'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+     

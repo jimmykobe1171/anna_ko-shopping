@@ -138,9 +138,9 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-CORS_ALLOWED_ORIGINS = [
-    'http://localhost:3000',
-]
+# CORS_ALLOWED_ORIGINS = [
+#     'http://localhost:3000',
+# ]
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
@@ -151,7 +151,10 @@ REST_FRAMEWORK = {
 }
 
 
-
+CSRF_TRUSTED_ORIGINS = [
+    'http://localhost:3000',
+    'http://127.0.0.1:3000',
+]
 
 
 CORS_ORIGIN_ALLOW_ALL = True
@@ -171,3 +174,5 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
   
 # CSRF_TRUSTED_ORIGINS = ['http://localhost:3000']
 # SESSION_COOKIE_SECURE = True
+CORS_ALLOW_ALL_ORIGINS = True  
+CORS_ALLOW_CREDENTIALS = True
