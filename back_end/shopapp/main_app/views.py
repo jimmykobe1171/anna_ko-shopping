@@ -43,26 +43,50 @@ class ProductView(APIView):
     serializer_class = ProductSerializer
     def get(self, request):
 
-        products = [{'brand': product.brand,'descriprion': product.description, 'name': product.name, 'price': product.price, 'category':product.category } for product in Product.objects.all()]
+        products = [{'brand': product.brand,'descriprion': product.description, 'name': product.name ,  'price': product.price, 'category':product.category } for product in Product.objects.all()]
         return Response(products)
 
-class UserProfileView(APIView):
-    # serializer_class = UserProfileSerializer(data=request.data)
-    def post(self, request, format=None):
-        print("My routs being hit")
-        data = request.data
-        print(data)
-        name = data['name']
-        lastname =  data['lastname']
-        address = data['address']
-        phone = data['phone']
-        # username = data['username']
-        # password = data['password']
 
-        if user_profile.is_valid():
-            user_pofile.save()
-            return Response({'success': 'User profile created successfully'})
-        return Response({'error': 'something goes wrong'})
+
+class ProductDetailView(APIView):
+    def get(self, request, product_id, *args, **kwargs):
+        
+        product_item = self.get_object(product_id, request.user.id)
+        if not product_item:
+            return Response(
+                {"res": "Object with product id does not exists"},
+                status=status.HTTP_400_BAD_REQUEST
+            )
+
+        serializer_class = ProductSerializer(product_item)
+        return Response(serializer_class.data, status=status.HTTP_200_OK)
+
+
+    #     class ProductView(APIView):
+    # serializer_class = ProductSerializer
+    # def get(self, request):
+
+    #     products = [{'brand': product.brand,'descriprion': product.description, 'name': product.name ,  'price': product.price, 'category':product.category } for product in Product.objects.all()]
+    #     return Response(products)
+
+
+# class UserProfileView(APIView):
+#     # serializer_class = UserProfileSerializer(data=request.data)
+#     def post(self, request, format=None):
+#         print("My routs being hit")
+#         data = request.data
+#         print(data)
+#         name = data['name']
+#         lastname =  data['lastname']
+#         address = data['address']
+#         phone = data['phone']
+#         # username = data['username']
+#         # password = data['password']
+
+#         if  user_profile.is_valid():
+#             user_pofile.save()
+#             return Response({'success': 'User profile created successfully'})
+#         return Response({'error': 'something goes wrong'})
         # profile = [{'address': profile.address,'city': profile.city, 'phone': profile.phone, 'user': profile.user,  } for profile in UserProfile.objects.all()]
         # return Response(profile)
 
