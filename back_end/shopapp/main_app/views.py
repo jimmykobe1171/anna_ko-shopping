@@ -27,27 +27,12 @@ from django.utils.decorators import method_decorator
 from django.views.decorators.csrf import csrf_exempt
 
 
-
-
-
-
-
-# class ProductView(APIView):
-#     serializer_class = ProductSerializer
-#     def get(self, request):
-
-#         products = [{'brand': product.brand,'descriprion': product.description, 'name': product.name, 'price': product.price, 'category':product.category } for product in Product.objects.all()]
-#         return Response(products)
-
-
-
 class ProductView(APIView):
     serializer_class = ProductSerializer
     def get(self, request):
 
         products = [{'cloth_size': product.size, 'brand': product.brand,'description': product.description, 'name': product.name , 'id': product.id, 'price': product.price, 'category':product.category } for product in Product.objects.all()]
         return Response(products)
-
 
 
 class ProductDetailView(APIView):
@@ -125,8 +110,6 @@ class CartView(APIView):
     #     if product_id in self.cart:
     #         del self.cart[product_id]
     #         self.save()
-
-
 
 
 # @method_decorator(csrf_exempt, name='dispatch')
@@ -230,4 +213,4 @@ class UserProfileView(APIView):
         except Exception as e:
             print(e)
             return Response({'error': 'Something went wrong during updating'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
-     
+

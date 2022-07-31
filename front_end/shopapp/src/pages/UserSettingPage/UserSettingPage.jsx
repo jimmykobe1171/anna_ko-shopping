@@ -3,12 +3,14 @@ import './UserSettingPage.css';
 import { changeProfile, changePassword, userProfile } from '../../Utilities/api'
 import {useEffect} from 'react'
 
+
 // import axios from 'axios'
 export default function UserSettingPage() {
     // const [passwords, setPasswords] = useState({
     //     oldPassword: '',
     //     newPassword: ''
     // });
+
  
     const [profile, setProfile] = useState({
         first_name: '',
@@ -70,6 +72,7 @@ export default function UserSettingPage() {
     //         alert('Change password failed - Try Again');
     //     }
     // }
+
 
     return (
         <div autoComplete="off" className="form-username">
