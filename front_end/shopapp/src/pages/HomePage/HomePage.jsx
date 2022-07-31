@@ -1,31 +1,31 @@
 import { Link } from "react-router-dom"
 //import * as getProducts from '../../Utilities/product-api'
-import {useEffect} from 'react'
-import { useState } from "react";
+// import {useEffect} from 'react'
+// import { useState } from "react";
 // import Women from "../../components/Women/Women";
 // import Men from '../../components/Men/Men';
 // import Kids from '../../components/Kids/Kids';
 import Button from '../../components/Button/Button'
 import "./HomePage.css";
 
-import axios from 'axios'
+// import axios from 'axios'
 export default function Home({user}) {
-    const [products, setProducts] = useState();
-    function componentDidMount() {
-		//console.log('it mounted');
-		let data;
-		axios.get('http://localhost:8000/api/product/')
-			.then((res) => {
-				data = res.data;
-				console.log(data);
+    // const [products, setProducts] = useState();
+    // function componentDidMount() {
+	// 	//console.log('it mounted');
+	// 	let data;
+	// 	axios.get('http://localhost:8000/api/product/')
+	// 		.then((res) => {
+	// 			data = res.data;
+	// 			console.log(data);
                
-				setProducts(data);
-			})
-			.catch((err) => {});
-	}
-	useEffect(() => {
-		componentDidMount();
-	}, []);
+	// 			setProducts(data);
+	// 		})
+	// 		.catch((err) => {});
+	// }
+	// useEffect(() => {
+	// 	componentDidMount();
+	// }, []);
     
 
 //  async function getProducts(){

@@ -24,7 +24,7 @@ const Kids=({products})=> {
         return (
           <div className="user-setting">
           <div key={product.id}>
-            <h4><Link to={`product/id`}>{product.brand}</Link></h4>
+            <h4><Link to={`kids/:id`}>{product.brand}</Link></h4>
             <h4>$ {product.price}</h4>
             <h4> {product.descriprion}</h4>
   

@@ -3,19 +3,16 @@ import React from "react"
 import { Fragment } from "react"
 
 import { Link, Outlet } from "react-router-dom"
-
-// import {logout} from "../../Utilities/users-service"
-
+import { logout } from '../../Utilities/api'
 
 const NavBar = ({ user, setUser }) => {
-	// function handleLogOut() {
-	// 	// Delegate to the users-service
-	// 	userService.logOut()
-	// 	// Update state will also cause a re-render
-	// 	setUser(null)
-	// }
+	async function handleLogOut() {
+        await logout();
+		setUser(undefined);
+	}
 
-
+    // console.log('user: ', user);
+    const isLoggedIn = user !== undefined;
     return (
         <Fragment>
             <div className='navbar-container'>
@@ -28,8 +25,8 @@ const NavBar = ({ user, setUser }) => {
                     &nbsp; | &nbsp;
                     <Link className="nav-link" to='/kids'>KIDS</Link>
                     &nbsp; | &nbsp;
-                    <Link className="nav-link" to='/allproduct'>All Product</Link>
-                    
+                    {/* <Link className="nav-link" to='/allproduct'>All Product</Link>
+                     */}
                     
                 </div>
                 <Link className="logo-container" to='/'>
@@ -41,11 +38,19 @@ const NavBar = ({ user, setUser }) => {
                     <Link className="nav-link" to='/cart'>
                         SHOPPING CART
                     </Link>
-                    &nbsp; | &nbsp;
-                    <Link className="nav-link" to='/settings'>Profile </Link>
-                    &nbsp; | &nbsp;
-                    <Link className="nav-link" to='/auth'>LOGIN </Link>
-                    {/* <Link to="" className="icon" onClick={handleLogOut}>Log Out</Link> */}
+                    {isLoggedIn &&
+                        <div>
+                            &nbsp; | &nbsp;
+                            <Link className="nav-link" to='/settings'>PROFILE </Link>
+                            &nbsp; | &nbsp;
+                            <Link to="" className="icon" onClick={handleLogOut}>LOGOUT</Link>
+                        </div>
+                    }
+                    {!isLoggedIn &&
+                        // &nbsp; | &nbsp;
+                        <Link className="nav-link" to='/auth'>LOGIN </Link>
+                    }
+                     
                 </div>
             </div>
             <Outlet />

@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { login } from '../../Utilities/api'
+import { login, userProfile } from '../../Utilities/api'
 import { useNavigate } from "react-router-dom";
 
 import './LoginForm.css';
@@ -21,6 +21,8 @@ export default function LoginForm({ setUser }) {
     evt.preventDefault();
     try {
       await login(credentials);
+      const user = await userProfile();
+      setUser(user);
       // route to home page
       navigate("../")
   
@@ -32,7 +34,7 @@ export default function LoginForm({ setUser }) {
   return (
     <div>
       <div className="form-container" >
-          <h1></h1>
+        
         <form autoComplete="off" onSubmit={handleSubmit}>
           <label></label>
           <input type="text" name="username" placeholder="Enter Username" value={credentials.username} onChange={handleChange} required/>

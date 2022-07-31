@@ -1,12 +1,11 @@
-// export default Register;
-import React, { Component } from 'react';
-import { signUp } from '../../Utilities/api';
+
+import { signUp, userProfile } from '../../Utilities/api';
 import './SignUpForm.css';
 import { useNavigate } from "react-router-dom";
 import { useState } from 'react';
 
 
-export default function SignUpForm() {
+export default function SignUpForm({ setUser }) {
   const navigate = useNavigate();
   const [state, setState] = useState({
     username: '',
@@ -25,6 +24,8 @@ export default function SignUpForm() {
         return;
       }
       await signUp(state);
+      const user = await userProfile();
+      setUser(user);
       // route to home page
       navigate("../")
     } catch (err) {
@@ -59,5 +60,3 @@ export default function SignUpForm() {
     );
 
 }
-
-

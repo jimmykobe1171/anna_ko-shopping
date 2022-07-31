@@ -5,17 +5,20 @@ import { Routes, Route, useParams } from "react-router-dom";
 // import { Link } from "react-router-dom";
 const ProductDetailsPage = (props) => {
 
+// useEffect
+
 const { product, index } = props;
 return (
      <>
          <p>
-            {product.price}
+            <h1>Hello</h1>
+            {/* {product.price}
             <br />
             {product.description}
             <br />
             {/* <Link to={`/product/${index}`}>
                 <img src={product.brand} />
-            </Link> */}
+            </Link> */} 
             <Button buttonType='inverted'>Add to cart</Button>
         </p>
     </>

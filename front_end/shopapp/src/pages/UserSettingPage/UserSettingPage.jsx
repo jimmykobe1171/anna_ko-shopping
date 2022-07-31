@@ -3,7 +3,7 @@ import './UserSettingPage.css';
 import { changeProfile, changePassword, userProfile } from '../../Utilities/api'
 import {useEffect} from 'react'
 
-import axios from 'axios'
+// import axios from 'axios'
 export default function UserSettingPage() {
     const [passwords, setPasswords] = useState({
         oldPassword: '',
