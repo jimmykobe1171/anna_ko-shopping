@@ -15,6 +15,8 @@ class UserProfile(models.Model):
         
 
 class Product(models.Model):
+    Cloth_Sizes = (('XS', 'X-Small'),('S', 'Small'),('M', 'Medium'),('L', 'Large'), ('XL', 'X-Large'),)
+    cloth_size = models.CharField(max_length=2, blank= True, choices=Cloth_Sizes)
     name = models.CharField(max_length=100)
     category = models.CharField(max_length=100)
     description = models.TextField(max_length=250)
@@ -22,11 +24,14 @@ class Product(models.Model):
     price = models.IntegerField()
     brand = models.CharField(max_length=100)
 
+
     
     def __str__(self):
       return self.brand
 class Cart(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
+    # product = models.ManyToManyField(Product)
+    # item = models.ManyToManyField(CartItem, on_delete=models.CASCADE)
 
     def __str__(self):
       return self.product

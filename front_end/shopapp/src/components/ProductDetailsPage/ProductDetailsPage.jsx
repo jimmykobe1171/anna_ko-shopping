@@ -1,17 +1,33 @@
+import './ProductDetailsPage.css';
 import Button from "../Button/Button";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+
 import { Routes, Route, useParams } from "react-router-dom";
-;
+import axios from "axios";
 // import { Link } from "react-router-dom";
-const ProductDetailsPage = (props) => {
+const ProductDetailsPage = () => {
+const [product, setProduct]=useState('')
+const {id} = useParams();
+const getSingleProduct = async () =>{
+    const { data } = await axios.get(`http://localhost:8000/api/product/${id}`)
+    console.log(data)
+    setProduct(data)
+}
 
-// useEffect
+ useEffect(()=> {
+    getSingleProduct();
+ }, [])
 
-const { product, index } = props;
+
 return (
      <>
-         <p>
-            <h1>Hello</h1>
+         
+            <h1>detail page</h1>
+            <div className="detail"></div>
+            <p>{product.name}</p>
+            <p>${product.price}</p>
+            <p>{product.category}</p>
+            <p>{product.cloth_size}</p>
             {/* {product.price}
             <br />
             {product.description}
@@ -20,7 +36,8 @@ return (
                 <img src={product.brand} />
             </Link> */} 
             <Button buttonType='inverted'>Add to cart</Button>
-        </p>
+            <div className="dummy" />
+        
     </>
     );
 }

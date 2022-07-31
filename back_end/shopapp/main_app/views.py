@@ -45,7 +45,7 @@ class ProductView(APIView):
     serializer_class = ProductSerializer
     def get(self, request):
 
-        products = [{'brand': product.brand,'descriprion': product.description, 'name': product.name , 'id': product.id, 'price': product.price, 'category':product.category } for product in Product.objects.all()]
+        products = [{'cloth_size': product.cloth_size, 'brand': product.brand,'descriprion': product.description, 'name': product.name , 'id': product.id, 'price': product.price, 'category':product.category } for product in Product.objects.all()]
         return Response(products)
 
 # class ProductDetailView(APIView):
@@ -56,13 +56,14 @@ class ProductView(APIView):
 #         serializer = ProductSerializer(product)
 #         return Response(serializer.data)
 
+
+
+
 class ProductDetailView(APIView):
     serializer_class = ProductSerializer
     def get(self, request, id, *args, **kwargs):
         data = request.data
         user = request.user
-        
-        
         # result = {
         #         'id': product.id,
         #         'brand': product.brand,
@@ -82,6 +83,9 @@ class ProductDetailView(APIView):
 
         serializer_class = ProductSerializer(product)
         return Response(serializer_class.data, status=status.HTTP_200_OK)
+
+
+
 
 class CartView(APIView):
 

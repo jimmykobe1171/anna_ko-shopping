@@ -5,10 +5,10 @@ import {useEffect} from 'react'
 
 // import axios from 'axios'
 export default function UserSettingPage() {
-    const [passwords, setPasswords] = useState({
-        oldPassword: '',
-        newPassword: ''
-    });
+    // const [passwords, setPasswords] = useState({
+    //     oldPassword: '',
+    //     newPassword: ''
+    // });
  
     const [profile, setProfile] = useState({
         first_name: '',
@@ -56,20 +56,20 @@ export default function UserSettingPage() {
         }
     }
 
-    function handleChangePassword(evt) {
-        // console.log("new password: " + evt.target.value);
-        setPasswords({ ...passwords, [evt.target.name]: evt.target.value });
-    }
-    async function handleSubmitPassword(evt) {
-        evt.preventDefault();
-        try {
-            await changePassword(passwords);
-            alert('Change password success');
-        } catch {
-            //   setError('Change username failed - Try Again');
-            alert('Change password failed - Try Again');
-        }
-    }
+    // function handleChangePassword(evt) {
+    //     // console.log("new password: " + evt.target.value);
+    //     setPasswords({ ...passwords, [evt.target.name]: evt.target.value });
+    // }
+    // async function handleSubmitPassword(evt) {
+    //     evt.preventDefault();
+    //     try {
+    //         await changePassword(passwords);
+    //         alert('Change password success');
+    //     } catch {
+    //         //   setError('Change username failed - Try Again');
+    //         alert('Change password failed - Try Again');
+    //     }
+    // }
 
     return (
         <div autoComplete="off" className="form-username">
@@ -105,13 +105,13 @@ export default function UserSettingPage() {
                 <button type="submit" >Submit</button>
             </form>
 
-            <form autoComplete="off" className="form-password" onSubmit={handleSubmitPassword}>
+            {/* <form autoComplete="off" className="form-password" onSubmit={handleSubmitPassword}>
                 <label>Password</label>
                 <input type="text" placeholder="Old password" name="oldPassword" value={passwords.oldPassword} required onChange={handleChangePassword} />
                 <label>New password</label>
                 <input type="text" placeholder="New password" name="newPassword" value={passwords.newPassword} onChange={handleChangePassword} required />
                 <button type="submit" >Submit</button>
-            </form>
+            </form> */}
             {/* add dummy space to overcome the sticky footer */}
             <div className="dummy" />
         </div>
