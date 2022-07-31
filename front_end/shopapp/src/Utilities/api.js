@@ -1,13 +1,19 @@
+import Cookies from 'js-cookie'
 
 export default async function sendRequest(url, method = "GET", payload = null) {
     // Fetch uses an options object as a second arg to make requests
     // other than basic GET requests, include data, headers, etc.
-    const options = { method };
+    const options = { method, credentials: 'include'};
+
     if (payload) {
       options.headers = { "Content-Type": "application/json" };
       // Fetch requires data payloads to be stringified
       // and assigned to a body property on the options object
       options.body = JSON.stringify(payload);
+      const csrftoken = Cookies.get('csrftoken');
+      if (csrftoken) {
+        options.headers["X-CSRFToken"] = csrftoken;
+      }
     }
     const res = await fetch(url, options);
     console.log(res)
@@ -35,12 +41,15 @@ export async function logout() {
     return sendRequest(`${BASE_URL}/logout`, 'GET')
 }
 
-export async function changeUsername(userData) {
+export async function userProfile() {
+    return sendRequest(`${BASE_URL}/profile`, 'GET')
+}
+
+export async function changeProfile(userData) {
     return sendRequest(`${BASE_URL}/profile`, 'POST', userData)
 }
 
 export async function changePassword(userData){
     return sendRequest(`${BASE_URL}/changePassword/`,'POST', userData )
 }
-
 
