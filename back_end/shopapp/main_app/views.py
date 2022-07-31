@@ -83,34 +83,34 @@ class ProductDetailView(APIView):
         serializer_class = ProductSerializer(product)
         return Response(serializer_class.data, status=status.HTTP_200_OK)
 
-# class CartView(APIView):
+class CartView(APIView):
 
-#     def add(self, request, format=None):
-#         result = {
-#                 'id': product.id,
-#                 'brand': product.brand,
-#                 'price': product.price,
-#                 # 'description':product.description
+    def add(self, request, format=None):
+        result = {
+                'id': product.id,
+                'brand': product.brand,
+                'price': product.price,
+                # 'description':product.description
                 
-#             }
-#         data = request.data
-#         user = request.user
-#         product = request.product
-#         product_id = str(product.id)
-#         if product_id not in self.cart:
-#             self.cart[product_id] = {'quantity': 0 }
-#         if update_quantity:
-#             self.cart[product_id]['quantity'] = quantity
-#         else:
-#             self.cart[product_id]['quantity'] += quantity
-#         self.save()
+            }
+        data = request.data
+        user = request.user
+        product = request.product
+        product_id = str(product.id)
+        if product_id not in self.cart:
+            self.cart[product_id] = {'quantity': 0 }
+        if update_quantity:
+            self.cart[product_id]['quantity'] = quantity
+        else:
+            self.cart[product_id]['quantity'] += quantity
+        self.save()
 
 
-#     def remove(self, product):
-#         product_id = str(product.id)
-#         if product_id in self.cart:
-#             del self.cart[product_id]
-#             self.save()
+    def remove(self, product):
+        product_id = str(product.id)
+        if product_id in self.cart:
+            del self.cart[product_id]
+            self.save()
 
 
 
