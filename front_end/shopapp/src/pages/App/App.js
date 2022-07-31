@@ -19,14 +19,14 @@ import UserSettingPage from "../UserSettingPage/UserSettingPage";
 import React from "react"
 import {useEffect} from 'react'
 import axios from 'axios'
-
 import { userProfile } from '../../Utilities/api'
 
 
 export default function App() {
   const [user, setUser] = useState();
   const [products, setProducts] = useState();
-  // const[profile, setProfile] = useState();
+  const [profile, setProfile] = useState();
+
 
   function componentDidMount() {
 		//console.log('it mounted');

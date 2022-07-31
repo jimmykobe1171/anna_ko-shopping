@@ -1,4 +1,3 @@
-
 import { signUp, userProfile } from '../../Utilities/api';
 import './SignUpForm.css';
 import { useNavigate } from "react-router-dom";
