@@ -1,92 +1,54 @@
 import { useState } from 'react';
 import './UserSettingPage.css';
-import {changeUsername} from '../../Utilities/api'
-import { changePassword } from '../../Utilities/api';
+import { changeProfile, changePassword, userProfile } from '../../Utilities/api'
 import {useEffect} from 'react'
 
 import axios from 'axios'
-export default function UserSettingPage({ user, setUser }) {
-    const [username, setUsername] = useState(user.name);
-    const [changed, setChanged] = useState(false);
-
+export default function UserSettingPage() {
     const [passwords, setPasswords] = useState({
-        oldPassword: "",
-        newPassword: ""
+        oldPassword: '',
+        newPassword: ''
     });
-    const [address, setAddress] = useState(
-    )
-    const [phone, setPhone] = useState(
-    )
-    const [lastname, setLastname] = useState(user.lastname
-    )
-    const [name, setName] = useState(
-    )
-    const [city, setCity] = useState(
-
-        )
-
  
-  const [profile, setProfile] = useState(user);
+    const [profile, setProfile] = useState({
+        first_name: '',
+        last_name: '',
+        city: '',
+        address: '',
+        phone: '',
+    });
     function componentDidMount() {
 		//console.log('it mounted');
-		let data;
-		axios.put('http://localhost:8000/api/profile')
-			.then((res) => {
-				data = res.data;
-				console.log(data);
+		// let data;
+		// axios.get('http://127.0.0.1:8000/api/users/profile', { withCredentials: true})
+		// 	.then((res) => {
+		// 		data = res.data;
+		// 		console.log(data);
                
-				setProfile(data);
-			})
-			.catch((err) => {});
+		// 		setProfile(data);
+		// 	})
+		// 	.catch((err) => {});
+
+
+        userProfile()
+            .then(profile => setProfile(profile));
+        ;
 	}
 	useEffect(() => {
 		componentDidMount();
 	}, []);
 
 
-    function handleChangePhone(evt) {
+    function handleChangeProfile(evt) {
         // console.log("new username: " + evt.target.value);
-        setPhone(evt.target.value);
+        setProfile({ ...profile, [evt.target.name]: evt.target.value });
     }
 
-    function handleChangeLastname(evt) {
-        // console.log("new username: " + evt.target.value);
-        setLastname(evt.target.value);
-    }
-
-    function handleChangeUserName(evt) {
-        // console.log("new username: " + evt.target.value);
-        setUsername(evt.target.value);
-    }
-    function handleChangeName(evt) {
-        // console.log("new username: " + evt.target.value);
-        setName(evt.target.value);
-    }
-    function handleChangeCity(evt) {
-        // console.log("new username: " + evt.target.value);
-        setCity(evt.target.value);
-    }
-
-
-    function handleChangeAddress(evt) {
-        // console.log("new username: " + evt.target.value);
-        setAddress(evt.target.value);
-    }
-
-    async function handleSubmitUserName(evt) {
+    async function handleSubmitProfile(evt) {
         evt.preventDefault();
         try {
-            user.name = username; // update the username.
-            console.log(user.lastname)
-            user.lastname = lastname
-            user.address = address
-            user.phone = phone
-            user.name = name
-            const newUser = changeUsername(user);
-            setUser(newUser);
-            const newName =changeUsername(user)
-            setName(newName)
-            alert("Username changed!");
+            await changeProfile(profile);
+            alert('Profile change is saved successfully');
         } catch (error) {
             //   setError('Change username failed - Try Again');
             console.log("error: ", error);
@@ -101,13 +63,7 @@ export default function UserSettingPage({ user, setUser }) {
     async function handleSubmitPassword(evt) {
         evt.preventDefault();
         try {
-            // console.log("passwords: ", passwords);
-            user.oldPassword = passwords.oldPassword;
-            user.newPassword = passwords.newPassword;
-            // console.log("user", user);
-            const newUser = changePassword(user);
-            setUser(newUser);
-            setChanged(true)
+            await changePassword(passwords);
             alert('Change password success');
         } catch {
             //   setError('Change username failed - Try Again');
@@ -118,54 +74,42 @@ export default function UserSettingPage({ user, setUser }) {
     return (
         <div autoComplete="off" className="form-username">
             <h3>Profile page</h3>
-            <form autoComplete="off" className="form-username" onSubmit={handleSubmitUserName}>
-                <label>New Username</label>
-                <input type="text" placeholder="New username" name="username" value={username} onChange={handleChangeUserName} required />
-
-
-                    <label>Name</label>
-                    <input type="text" placeholder="Name" name="name" value={name} onChange={handleChangeName} required />
+            <form autoComplete="off" className="form-username" onSubmit={handleSubmitProfile}>
+                    <label>First name</label>
+                    <input type="text" placeholder="First name" name="first_name" value={profile.first_name} onChange={handleChangeProfile}  />
                 
           
-                    <label>Lastname</label>
-                    <input type="text" placeholder="Lastname" name="username" value={lastname} onChange={handleChangeLastname} required />
+                    <label>Last name</label>
+                    <input type="text" placeholder="Last name" name="last_name" value={profile.last_name} onChange={handleChangeProfile}  />
                 
 
                     <label>City</label>
-                    <input type="text" placeholder="City" name="name" value={city} onChange={handleChangeCity} required />
+                    <input type="text" placeholder="City" name="city" value={profile.city} onChange={handleChangeProfile}  />
                 
                 
                     <label>Address</label>
                     <input type='text'
                         name='address'
                         placeholder='Address'
-                        value={address}
-                        onChange={handleChangeAddress} 
+                        value={profile.address}
+                        onChange={handleChangeProfile} 
                     />
-                
                
                     <label>Phone Number</label>
                     <input
                         name='phone'
                         placeholder='Phone'
-                        value={phone}
-                        onChange={handleChangePhone}
+                        value={profile.phone}
+                        onChange={handleChangeProfile}
                     />
                 <button type="submit" >Submit</button>
-              
-
-
             </form>
-
-
 
             <form autoComplete="off" className="form-password" onSubmit={handleSubmitPassword}>
                 <label>Password</label>
-                <input type="text" placeholder="Old password" name="oldPassword" required onChange={handleChangePassword} />
+                <input type="text" placeholder="Old password" name="oldPassword" value={passwords.oldPassword} required onChange={handleChangePassword} />
                 <label>New password</label>
-                <input type="text" placeholder="New password" name="newPassword"
-                    onChange={handleChangePassword} required />
-                {changed && <p>Password changed</p>}
+                <input type="text" placeholder="New password" name="newPassword" value={passwords.newPassword} onChange={handleChangePassword} required />
                 <button type="submit" >Submit</button>
             </form>
             {/* add dummy space to overcome the sticky footer */}
