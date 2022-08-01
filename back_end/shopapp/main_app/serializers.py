@@ -1,5 +1,6 @@
 from rest_framework import serializers
 from .models import Product
+from .models import Cart
 from .models import UserProfile
 # from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 
@@ -23,3 +24,8 @@ class ProductSerializer(serializers.ModelSerializer):
         model = Product
         # fields = ('id', 'brand','description',  'price', 'category')
         fields ='__all__'
+
+class CartSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Cart
+        fields = '__all__'

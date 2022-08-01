@@ -45,17 +45,8 @@ class ProductView(APIView):
     serializer_class = ProductSerializer
     def get(self, request):
 
-        products = [{'cloth_size': product.cloth_size, 'brand': product.brand,'descriprion': product.description, 'name': product.name , 'id': product.id, 'price': product.price, 'category':product.category } for product in Product.objects.all()]
+        products = [{'cloth_size': product.size, 'brand': product.brand,'description': product.description, 'name': product.name , 'id': product.id, 'price': product.price, 'category':product.category } for product in Product.objects.all()]
         return Response(products)
-
-# class ProductDetailView(APIView):
-#     serializer = ProductSerializer
-#     def get(self, request, pk, format=None):
-#         products = Product.objects.all()
-#         product = Product.objects.get(pk=id)
-#         serializer = ProductSerializer(product)
-#         return Response(serializer.data)
-
 
 
 
@@ -69,12 +60,25 @@ class ProductDetailView(APIView):
         #         'brand': product.brand,
         #         'price': product.price,
         #         # 'description':product.description
-                
         #     }
         # product_id = str(product.id)
         product = Product.objects.get(id=id)
         # product = Product.objects.get(pk=id )
-        
+        if not product:
+            return Response(
+                {"res": "Object with product id does not exists"},
+                status=status.HTTP_400_BAD_REQUEST
+            )
+        serializer_class = ProductSerializer(product)
+        return Response(serializer_class.data, status=status.HTTP_200_OK)
+
+    serializer_class = ProductSerializer
+    def delete(self, request, id, *args, **kwargs):
+        data = request.data
+        user = request.user
+        product = Product.objects.get(id=id)
+        # product = Product.objects.get(pk=id )e
+        product.delete()
         if not product:
             return Response(
                 {"res": "Object with product id does not exists"},
@@ -84,37 +88,43 @@ class ProductDetailView(APIView):
         serializer_class = ProductSerializer(product)
         return Response(serializer_class.data, status=status.HTTP_200_OK)
 
-
-
-
 class CartView(APIView):
-
-    def add(self, request, format=None):
-        result = {
-                'id': product.id,
-                'brand': product.brand,
-                'price': product.price,
-                # 'description':product.description
-                
-            }
-        data = request.data
+    serializer_class = CartSerializer
+    def get(self, request):
+        data= request.data
         user = request.user
-        product = request.product
-        product_id = str(product.id)
-        if product_id not in self.cart:
-            self.cart[product_id] = {'quantity': 0 }
-        if update_quantity:
-            self.cart[product_id]['quantity'] = quantity
-        else:
-            self.cart[product_id]['quantity'] += quantity
-        self.save()
+        cart = [{'user': cart.user, 'product': cart.product,'quantity': cart.quantity, 'id': cart.id, } for cart in Cart.objects.all()]
+        return Response(cart)
+        
 
 
-    def remove(self, product):
-        product_id = str(product.id)
-        if product_id in self.cart:
-            del self.cart[product_id]
-            self.save()
+# class CartView(APIView):
+#     def add(self, request, format=None):
+#         result = {
+#                 'id': product.id,
+#                 'brand': product.brand,
+#                 'price': product.price,
+#                 # 'description':product.description
+                
+            # }
+        # data = request.data
+        # user = request.user
+        # product = request.product
+        # product_id = str(product.id)
+        # if product_id not in self.cart:
+        #     self.cart[product_id] = {'quantity': 0 }
+        # if update_quantity:
+        #     self.cart[product_id]['quantity'] = quantity
+        # else:
+        #     self.cart[product_id]['quantity'] += quantity
+        # self.save()
+
+
+    # def remove(self, product):
+    #     product_id = str(product.id)
+    #     if product_id in self.cart:
+    #         del self.cart[product_id]
+    #         self.save()
 
 
 

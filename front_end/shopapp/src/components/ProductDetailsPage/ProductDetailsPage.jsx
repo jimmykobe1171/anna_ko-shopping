@@ -22,13 +22,15 @@ const getSingleProduct = async () =>{
 return (
      <>
          
+            <div className="user-setting2">
             <h1>detail page</h1>
-            <div className="detail"></div>
             <p>{product.name}</p>
             <p>${product.price}</p>
             <p>{product.category}</p>
-            <p>{product.cloth_size}</p>
-            {/* {product.price}
+            {/* <p>{product.cloth_size}</p> */}
+            <p>{product.description}</p>
+           <p>{product.image}</p>
+          
             <br />
             {product.description}
             <br />
@@ -37,6 +39,7 @@ return (
             </Link> */} 
             <Button buttonType='inverted'>Add to cart</Button>
             <div className="dummy" />
+            </div>
         
     </>
     );
