@@ -74,13 +74,34 @@ class ProductDetailView(APIView):
         return Response(serializer_class.data, status=status.HTTP_200_OK)
 
 class CartView(APIView):
-    serializer_class = CartSerializer
+    permission_classes = [IsAuthenticated]
+
     def get(self, request):
-        data= request.data
         user = request.user
-        cart = [{'user': cart.user, 'product': cart.product,'quantity': cart.quantity, 'id': cart.id, } for cart in Cart.objects.all()]
-        return Response(cart)
+        # if no cart for the user, just create one
+        cart, created = Cart.objects.get_or_create(user=user)
+        # get all cart items for this cart
+        carItems = CartItem.objects.filter(cart=cart)
+        result = [{'product': ProductSerializer(item.product).data, 'quantity': item.quantity} for item in carItems]
+        # cart = [{'user': cart.user, 'product': cart.product,'quantity': cart.quantity, 'id': cart.id, } for cart in Cart.objects.all()]
+        return Response(result)
         
+    def post(self, request):
+        data= request.data
+        product_id = data['product_id']
+        quantity = data['quantity']
+        user = request.user
+        # if no cart for the user, just create one
+        cart, created = Cart.objects.get_or_create(user=user)
+        cartItem, created = CartItem.objects.get_or_create(cart=cart, product_id=product_id)
+        if created:
+            # new created cartItem
+            cartItem.quantity = quantity
+        else:
+            # existed cartItem, need to add quantity
+            cartItem.quantity += quantity
+        cartItem.save()
+        return Response({'success': 'added product to cart successfully'})
 
 
 # class CartView(APIView):

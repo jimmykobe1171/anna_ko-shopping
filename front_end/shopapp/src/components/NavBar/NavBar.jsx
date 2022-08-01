@@ -34,12 +34,12 @@ const NavBar = ({ user, setUser }) => {
                 </Link>
                 <div className="nav-links-container">
                     <Link className="nav-link" to='/search'>SEARCH</Link>
-                    &nbsp; | &nbsp;
-                    <Link className="nav-link" to='/cart'>
-                        SHOPPING CART
-                    </Link>
                     {isLoggedIn &&
                         <div>
+                            &nbsp; | &nbsp;
+                            <Link className="nav-link" to='/cart'>
+                                SHOPPING CART
+                            </Link>
                             &nbsp; | &nbsp;
                             <Link className="nav-link" to='/settings'>PROFILE </Link>
                             &nbsp; | &nbsp;

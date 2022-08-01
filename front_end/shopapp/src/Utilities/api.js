@@ -1,6 +1,6 @@
 import Cookies from 'js-cookie'
 
-export default async function sendRequest(url, method = "GET", payload = null) {
+export async function sendRequest(url, method = "GET", payload = null) {
     // Fetch uses an options object as a second arg to make requests
     // other than basic GET requests, include data, headers, etc.
     const options = { method, credentials: 'include'};

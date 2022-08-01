@@ -15,7 +15,7 @@ urlpatterns = [
     path('users/logout', LogoutView.as_view(), name='logout' ),
     path('users/profile', UserProfileView.as_view(), name='profile'),
     path('product/<str:id>/', ProductDetailView.as_view(), name='product'),
-    path('cart', CartView.as_view(), name='cart'),
+    path('cart/', CartView.as_view(), name='cart'),
     # path('users/profile', UserProfileView.as_view(), name='profile')
 ]
 
